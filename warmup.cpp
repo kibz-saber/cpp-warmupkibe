@@ -165,18 +165,30 @@ cout << "Heaviest: " << b << " at position " << bg
     // =================================================================
 
     cout << "=== Q2 ===\n";
-/* 
-**Uses:** `logbook` · *structs, loops, if, accumulators, division*
+long long totA=0;
+long long totB=0;
+long long totC=0;
+double akg=0;
+double bkg=0;
+double ckg=0;
+for(int s=0;s<11;s++){
+    if (logbook[s].grade=='A' or logbook[s].grade=='a' ){
+akg+=logbook[s].kg;
+totA++;
+    }
+    if (logbook[s].grade=='B' or logbook[s].grade=='b' ){
+     bkg+=logbook[s].kg;
+totB++;   
+    }
+    if (logbook[s].grade=='c' or logbook[s].grade=='C' ){
+      ckg+=logbook[s].kg;
+totC++;  
+    }
+}
+cout<<" Grade A: "<< totA << " deliveries, "<< akg << " kg total, "<< (akg)/totA << " kg average";
+cout<<" Grade B: "<< totB << " deliveries, "<< bkg << " kg total, "<< (bkg)/totB << " kg average";
+cout<<" Grade C: "<< totC << " deliveries, "<< ckg << " kg total, "<< (ckg)/totC << " kg average";
 
-For each grade A, B and C, report how many deliveries there were, their total
-weight, and their average weight. Then say which grade had the best **average**.
-
-=== Q2 ===
-Grade A: 6 deliveries, 219.5 kg total, 36.5833 kg average
-Grade B: 3 deliveries, 165 kg total, 55 kg average
-Grade C: 2 deliveries, 62 kg total, 31 kg average
-Best average: grade B
-*/
 
 
     cout << "\n";
