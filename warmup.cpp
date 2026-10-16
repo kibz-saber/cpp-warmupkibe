@@ -15,7 +15,9 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 using namespace std;
+
 
 /**
  * THE RECORD
@@ -83,7 +85,14 @@ void printBoard(const vector<int> &b) {
     for (int i = 1; i <= 16; i++) cout << b[i] << " ";
     cout << "\n";
 }
-
+int findFarmer(const vector<Delivery> &log, string name) {
+    for (int i = 0; i < log.size(); i++) {
+        if (log[i].farmer == name) {
+            return i;  
+    }
+ }
+ return -1;  
+}
 
 int main() {
 
@@ -96,6 +105,11 @@ int main() {
     //  It answers: how many deliveries were grade A, and what was the
     //  heaviest single delivery in the whole logbook?
     // =================================================================
+    unordered_map<string, double> farmertot;
+    unordered_map<string, double> farmerdev;
+    vector<string> farmer;
+   
+
 
     int gradeACount = 0;
     Delivery heaviest = logbook[0];        // start from a REAL entry,
@@ -171,7 +185,7 @@ long long totC=0;
 double akg=0;
 double bkg=0;
 double ckg=0;
-for(int s=0;s<11;s++){
+for(int s=0;s<logbook.size();s++){
     if (logbook[s].grade=='A' or logbook[s].grade=='a' ){
 akg+=logbook[s].kg;
 totA++;
@@ -200,7 +214,29 @@ cout<<" Grade C: "<< totC << " deliveries, "<< ckg << " kg total, "<< (ckg)/totC
     // =================================================================
 
     cout << "=== Q3 ===\n";
+    for(int p=0;p<logbook.size();p++){
+        farmertot.try_emplace(logbook[p].farmer,0);
+        farmerdev.try_emplace(logbook[p].farmer,0);
+        if(farmertot[logbook[p].farmer]==0){
+            farmer.push_back(logbook[p].farmer);
+        }
+        farmertot[logbook[p].farmer]+=logbook[p].kg;
+        farmerdev[logbook[p].farmer]++;
 
+    }
+    string bigW= farmer[0];
+    string bigde= farmer[0];
+    for (int q=0;q<farmer.size();q++){
+        
+        if (farmertot[farmer[q]]>farmertot[bigW]){
+            bigW=farmer[q];
+        }
+        if (farmerdev[farmer[q]]>farmerdev[bigde]){
+            bigde=farmer[q];
+        }
+    }
+    cout<< " Most Deliveries: " << bigde << " (" << farmerdev[bigde] << " )" << endl;
+    cout<< " Most Kg: " << bigW << " (" << farmertot[bigW] << " kg)" << endl;
 
 
 
@@ -287,9 +323,6 @@ cout<<" Grade C: "<< totC << " deliveries, "<< ckg << " kg total, "<< (ckg)/totC
 // Q3:  return the position of the first delivery by this farmer,
 //      or -1 if the farmer is not in the log at all.
 //
-// int findFarmer(const vector<Delivery> &log, string name) {
-//
-// }
 
 
 // Q4:  what one delivery earns, before any cap is applied.
