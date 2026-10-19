@@ -18,7 +18,20 @@
 #include <unordered_map>
 using namespace std;
 
-
+double payment(double kg, char grade) {
+      
+            if(toupper(grade)== 'A'){
+                return kg*450*1.1;
+            }
+            else if(toupper(grade)== 'B'){
+                return kg*450;
+            }
+            else{
+                return kg*450*0.8;
+            }
+        }
+        
+ 
 /**
  * THE RECORD
  * One delivery: who brought it, how much, and what grade it was given.
@@ -250,8 +263,19 @@ cout<<" Grade C: "<< totC << " deliveries, "<< ckg << " kg total, "<< (ckg)/totC
     // =================================================================
 
     cout << "=== Q4 ===\n";
+int cap=0;
+for (int r=0;r<logbook.size();r++){
+    if (cap<=100000){
+        cout<< logbook[r].farmer << " " << logbook[r].kg << " kg, grade " << logbook[r].grade << " -> " << payment(logbook[r].kg,logbook[r].grade) << endl;
+        cap+=payment(logbook[r].kg,logbook[r].grade);
+    }
+    else{
+                cout<< logbook[r].farmer << " " << logbook[r].kg << " kg, grade " << logbook[r].grade << " -> " << payment(logbook[r].kg,logbook[r].grade)/2 << endl;
+        cap+=payment(logbook[r].kg,logbook[r].grade);
 
-
+    }
+}
+cout<< "Total payment: " << cap << endl;
 
 
 
@@ -329,6 +353,4 @@ cout<<" Grade C: "<< totC << " deliveries, "<< ckg << " kg total, "<< (ckg)/totC
 //      Grade A pays 10% above the rate, B pays the rate,
 //      anything else pays 20% below it. The rate is 450.
 //
-// double payment(double kg, char grade) {
-//
-// }
+
